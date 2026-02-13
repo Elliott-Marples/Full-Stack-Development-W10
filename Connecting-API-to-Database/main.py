@@ -38,10 +38,10 @@ def get_driver():
 def get_driver(driver_license: int):
     cursor = conn.cursor()
     query = "SELECT DriverLicense, FirstName, LastName FROM Driver WHERE DriverLicense=%s"
-    cursor.execute(query, (driver_license))
+    cursor.execute(query, (driver_license,))
     
     item = cursor.fetchone()
     cursor.close()
     if item is None:
         raise HTTPException(status_code=404, detail="Item not found")
-    return {"DriverLicense": item[0], "FirstName": item[1], "SecondName": item[2]}
+    return {"DriverLicense": item[0], "FirstName": item[1], "LastName": item[2]}
